@@ -5,7 +5,6 @@ instructions = STDIN.read.split("\n")
 size = instructions.shift
 row_size = size.split.first.to_i
 
-
 @cells = {}
 
 # @cells is a hash containing all references
@@ -13,6 +12,7 @@ row_size = size.split.first.to_i
   # A1: 5,
   # B2: 'A1'
 # }
+
 instructions.each_slice(row_size).with_index do |row, row_number|
   row.each_with_index do |value, col_number|
     location = [ALPHABET[col_number], row_number + 1].join
