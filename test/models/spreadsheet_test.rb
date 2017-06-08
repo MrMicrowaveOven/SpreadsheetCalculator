@@ -24,8 +24,12 @@ class SpreadsheetTest < ActiveSupport::TestCase
     spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4 3 %\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
     assert_not spreadsheet.save
   end
-  test "should reject a spreadsheet with too many spaces" do
+  test "should reject a spreadsheet with too many linebreaks" do
     spreadsheet = Spreadsheet.new({instructions: "3 2\n\nB2\n4 3 %\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+    assert_not spreadsheet.save
+  end
+  test "should reject a spreadsheet with too many spaces" do
+    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2  \n4 3 %\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
     assert_not spreadsheet.save
   end
 end
