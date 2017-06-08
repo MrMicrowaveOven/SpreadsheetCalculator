@@ -6,14 +6,13 @@ class Spreadsheet < ApplicationRecord
   format: { with: /\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+)((\s(([A-Z]+)([0-9]+)|[0-9]+|[-+*\/]+))*))*))\Z/, message: "improper format" }
 
   def check_table_count
-    # return false if !self.valid?
-    spreadsheet_layout = self.instructions.split("\n").first
-    spreadsheet_mults = spreadsheet_layout.split
-    spreadsheet_size = spreadsheet_mults[0].to_i * spreadsheet_mults[1].to_i
-    if self.instructions.split("\n").length - 1 != spreadsheet_size
-      return false
-    end
-    true
+    spreadsheet_array = self.instructions.split("\n")
+    spreadsheet_dimensions = spreadsheet_array.first
+    spreadsheet_cells = spreadsheet_array[1 .. -1]
+    spreadsheet_dims_array = spreadsheet_dimensions.split
+    num_cells = spreadsheet_dims_array[0].to_i * spreadsheet_dims_array[1].to_i
+
+    num_cells == spreadsheet_cells.length
   end
 
   def evaluate_spreadsheet

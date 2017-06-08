@@ -39,9 +39,25 @@ class SpreadsheetTest < ActiveSupport::TestCase
   end
 
   class CheckTableCountTest < ActiveSupport::TestCase
-    test "should reject a spreadsheet with an incorrect table size" do
+    test "should return false when passed a spreadsheet with an incorrect table size" do
       spreadsheet = Spreadsheet.new({instructions: "2 2\nB2\n5\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
       assert_not spreadsheet.check_table_count
+    end
+    test "should return true when passed an empty 0 x 0 spreadsheet " do
+      spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      assert spreadsheet.check_table_count
+    end
+    test "should return false when passed a single-cell 1 x 0 spreadsheet " do
+      spreadsheet = Spreadsheet.new({instructions: "1 0\n3"})
+      assert_not spreadsheet.check_table_count
+    end
+    test "should return true when passed a single-cell 1 x 1 spreadsheet " do
+      spreadsheet = Spreadsheet.new({instructions: "1 1\n3"})
+      assert spreadsheet.check_table_count
+    end
+    test "should return true when passed a spreadsheet with a correct table size" do
+      spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+      assert spreadsheet.check_table_count
     end
   end
 
