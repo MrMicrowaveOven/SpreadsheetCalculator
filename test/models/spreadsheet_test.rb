@@ -21,8 +21,12 @@ class SpreadsheetTest < ActiveSupport::TestCase
     spreadsheet = Spreadsheet.new({instructions: "0 0"})
     assert spreadsheet.save
   end
+  test "should save a spreadsheet with a a single cell" do
+    spreadsheet = Spreadsheet.new({instructions: "1 1\n3.00000"})
+    assert spreadsheet.save
+  end
   test "should save a standard spreadsheet" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4.00000 3.00000 *\nC2\nA1 B1 / 2.00000 +\n13.00000\nB1 A2 / 2.00000 *"})
     assert spreadsheet.save
   end
   test "should not save a spreadsheet with an unknown character" do

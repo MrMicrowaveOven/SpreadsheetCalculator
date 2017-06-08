@@ -4,14 +4,18 @@ class SpreadsheetsController < ApplicationController
   end
 
   def create
-    # render json: params
-    puts params.inspect
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
-    if !@spreadsheet.check_table_count
+    table_count_check = @spreadsheet.check_table_count
+    evaluated_spreadsheet = @spreadsheet.evaluate_spreadsheet
+    @spreadsheet = Spreadsheet.new({instructions: evaluated_spreadsheet})
+    if !table_count_check
       render json: {Error: "Incorrect table dimensions"}
+    elsif evaluated_spreadsheet.include?("cyclic dep")
+      render json: {Error: evaluated_spreadsheet}
     elsif @spreadsheet.save
-      render json: @spreadsheet
+      render json: evaluated_spreadsheet
     else
+      puts @spreadsheet.inspect
       render json: {Post: "failure"}
     end
   end
