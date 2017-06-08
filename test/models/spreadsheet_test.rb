@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class SpreadsheetTest < ActiveSupport::TestCase
+  # setup do
+  #   @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+  #   @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
+  #   @standard_spreadsheet = Spreadsheet.new({instructions: })
+  # end
   test "should not save an empty spreadsheet" do
     spreadsheet = Spreadsheet.new
     assert_not spreadsheet.save
@@ -32,7 +37,11 @@ class SpreadsheetTest < ActiveSupport::TestCase
     assert spreadsheet.save
   end
   test "should not save a spreadsheet with an unknown character" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\n156.32346*\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\na156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
+    assert_not spreadsheet.save
+  end
+  test "should not save a spreadsheet that has cells without 5 trailing digits" do
+    spreadsheet = Spreadsheet.new({instructions: "3 2\n156\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert_not spreadsheet.save
   end
   test "should not save a spreadsheet with too many linebreaks" do
@@ -42,6 +51,37 @@ class SpreadsheetTest < ActiveSupport::TestCase
   test "should not save a spreadsheet with too many spaces" do
     spreadsheet = Spreadsheet.new({instructions: "3 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert_not spreadsheet.save
+  end
+
+  class ValidateInputTest < ActiveSupport::TestCase
+    test "should validate for empty 0 x 0 instructions" do
+      spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      assert_equal("validated", spreadsheet.validate_input)
+    end
+    test "should validate for single-cell 1 x 1 instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n4"
+      })
+      assert_equal("validated", spreadsheet.validate_input)
+    end
+    test "should validate for standard instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+      })
+      assert_equal("validated", spreadsheet.validate_input)
+    end
+    test "should not validate for invalid instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "3 2\nB2\n\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+      })
+      assert_equal({Error: "Inproper input format"}, spreadsheet.validate_input)
+    end
+    test "should not validate with incorrect spreadsheet size" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "2 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+      })
+      assert_equal({Error: "Incorrect table dimensions"}, spreadsheet.validate_input)
+    end
   end
 
   class CheckInputFormatTest < ActiveSupport::TestCase

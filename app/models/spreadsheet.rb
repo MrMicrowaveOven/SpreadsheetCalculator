@@ -5,6 +5,15 @@ class Spreadsheet < ApplicationRecord
   validates :instructions, presence: true,
   format: { with: /\A([0-9]+\s[0-9]+)$(\n^[0-9]+\.[0-9]{5})*\Z/, message: "improper format" }
 
+  def validate_input
+    if !check_input_format
+      return {Error: "Inproper input format"}
+    elsif !check_table_count
+      return {Error: "Incorrect table dimensions"}
+    end
+    return "validated"
+  end
+
   def check_input_format
     !self.instructions.match(/\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+)((\s(([A-Z]+)([0-9]+)|[0-9]+|[-+*\/]+))*))*))\Z/).to_s.empty?
   end
