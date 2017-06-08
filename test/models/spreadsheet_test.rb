@@ -8,13 +8,15 @@ class SpreadsheetTest < ActiveSupport::TestCase
   test "should not allow initialization of a spreadsheet with an incorrect key" do
     exception = assert_raises(Exception) {
       spreadsheet = Spreadsheet.new({
-        instluctions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+        instluctions: "3 2\n3.00000\n15.00000\n7.78382\n32.39347\n13.00000\n42.32423"
       })
     }
     assert_equal("unknown attribute 'instluctions' for Spreadsheet.", exception.message)
   end
-  test "should not save a spreadsheet that doesn't begin with a size" do
+  test "should not save a spreadsheet that doesn't begin with an integer size" do
     spreadsheet = Spreadsheet.new({instructions: "Hello"})
+    assert_not spreadsheet.save
+    spreadsheet2 = Spreadsheet.new({instructions: "1.0 1.0\n2"})
     assert_not spreadsheet.save
   end
   test "should save a spreadsheet with a blank size" do
@@ -26,25 +28,52 @@ class SpreadsheetTest < ActiveSupport::TestCase
     assert spreadsheet.save
   end
   test "should save a standard spreadsheet" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4.00000 3.00000 *\nC2\nA1 B1 / 2.00000 +\n13.00000\nB1 A2 / 2.00000 *"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\n156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert spreadsheet.save
   end
   test "should not save a spreadsheet with an unknown character" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4 3 %\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\n156.32346*\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert_not spreadsheet.save
   end
   test "should not save a spreadsheet with too many linebreaks" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\n\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\n156.32346\n4.00000\n\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert_not spreadsheet.save
   end
   test "should not save a spreadsheet with too many spaces" do
-    spreadsheet = Spreadsheet.new({instructions: "3 2\nB2  \n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+    spreadsheet = Spreadsheet.new({instructions: "3 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
     assert_not spreadsheet.save
+  end
+
+  class CheckInputFormatTest < ActiveSupport::TestCase
+    test "should return true for empty 0 x 0 instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "0 0"
+      })
+      assert spreadsheet.check_input_format
+    end
+    test "should return true for single-cell 1 x 1 instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n4"
+      })
+      assert spreadsheet.check_input_format
+    end
+    test "should return true for valid instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+      })
+      assert spreadsheet.check_input_format
+    end
+    test "should return false for invalid instructions" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "3 2\nB2\n\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
+      })
+      assert_not spreadsheet.check_input_format
+    end
   end
 
   class CheckTableCountTest < ActiveSupport::TestCase
     test "should return false when passed a spreadsheet with an incorrect table size" do
-      spreadsheet = Spreadsheet.new({instructions: "2 2\nB2\n5\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+      spreadsheet = Spreadsheet.new({instructions: "2 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
       assert_not spreadsheet.check_table_count
     end
     test "should return true when passed an empty 0 x 0 spreadsheet " do
@@ -52,15 +81,15 @@ class SpreadsheetTest < ActiveSupport::TestCase
       assert spreadsheet.check_table_count
     end
     test "should return false when passed a single-cell 1 x 0 spreadsheet " do
-      spreadsheet = Spreadsheet.new({instructions: "1 0\n3"})
+      spreadsheet = Spreadsheet.new({instructions: "1 0\n3.00000"})
       assert_not spreadsheet.check_table_count
     end
     test "should return true when passed a single-cell 1 x 1 spreadsheet " do
-      spreadsheet = Spreadsheet.new({instructions: "1 1\n3"})
+      spreadsheet = Spreadsheet.new({instructions: "1 1\n3.00000"})
       assert spreadsheet.check_table_count
     end
     test "should return true when passed a spreadsheet with a correct table size" do
-      spreadsheet = Spreadsheet.new({instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
+      spreadsheet = Spreadsheet.new({instructions: "3 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
       assert spreadsheet.check_table_count
     end
   end
@@ -88,16 +117,11 @@ class SpreadsheetTest < ActiveSupport::TestCase
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB2\n4 3 *\nC2\nA1 C2 / 2 +\n13\nB1 A2 / 2 *"
       })
-      # exception = assert_raises(Exception) {
       assert_equal(
         spreadsheet.evaluate_spreadsheet,
         "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2"
       )
-      # }
-      # assert_equal(
-        # "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2"
-        # exception.message
-      # )
     end
   end
+
 end

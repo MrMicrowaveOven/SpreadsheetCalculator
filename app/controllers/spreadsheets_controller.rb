@@ -5,6 +5,9 @@ class SpreadsheetsController < ApplicationController
 
   def create
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
+    if !@spreadsheet.check_input_format
+      render json: {Error: "Improper input format"}
+    end
     table_count_check = @spreadsheet.check_table_count
     evaluated_spreadsheet = @spreadsheet.evaluate_spreadsheet
     @spreadsheet = Spreadsheet.new({instructions: evaluated_spreadsheet})

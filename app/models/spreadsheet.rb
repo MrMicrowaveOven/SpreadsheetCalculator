@@ -3,7 +3,11 @@ class Spreadsheet < ApplicationRecord
   REF_REGEX = /^([A-Z]+)([0-9]+)$/
     # VALID_INSTRUCTIONS_REGEX =
   validates :instructions, presence: true,
-  format: { with: /\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+\.[0-9]{5})((\s(([A-Z]+)([0-9]+)|[0-9]+\.[0-9]{5}|[-+*\/]+))*))*))\Z/, message: "improper format" }
+  format: { with: /\A([0-9]+\s[0-9]+)$(\n^[0-9]+\.[0-9]{5})*\Z/, message: "improper format" }
+
+  def check_input_format
+    !self.instructions.match(/\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+)((\s(([A-Z]+)([0-9]+)|[0-9]+|[-+*\/]+))*))*))\Z/).to_s.empty?
+  end
 
   def check_table_count
     spreadsheet_array = self.instructions.split("\n")
