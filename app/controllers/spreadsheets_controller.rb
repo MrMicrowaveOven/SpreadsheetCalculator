@@ -24,14 +24,14 @@ class SpreadsheetsController < ApplicationController
   end
 
   def index
-    render json: Spreadsheet.all
+    render status: 200, json: Spreadsheet.all
   end
 
   def destroy
     Spreadsheet.all.each do |request|
       request.destroy
     end
-    render json: {allSpreadsheets: "deleted"}
+    render status: 400, json: {allSpreadsheets: "deleted"}
   end
 
   private
