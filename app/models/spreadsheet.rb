@@ -20,6 +20,7 @@ class Spreadsheet < ApplicationRecord
     instructions = self.instructions.split("\n")
     size = instructions.shift
     row_size = size.split.first.to_i
+    num_rows = size.split.last.to_i
 
     @cells = {}
 
@@ -43,10 +44,14 @@ class Spreadsheet < ApplicationRecord
     end
 
     # output final result
-    # @cells.values.each do |val|
-    #   puts sprintf('%.5f', val)
-    # end
-    @cyclic_error || @cells
+    output_string = "#{row_size} #{num_rows}"
+    @cells.values.each do |val|
+      output_string += "\n"
+      output_string += sprintf('%.5f', val)
+      # puts sprintf('%.5f', val)
+    end
+    puts output_string
+    @cyclic_error || output_string
   end
 
   private

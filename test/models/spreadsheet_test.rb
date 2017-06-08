@@ -66,28 +66,18 @@ class SpreadsheetTest < ActiveSupport::TestCase
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
       })
-      assert_equal(spreadsheet.evaluate_spreadsheet, {
-          "A1" => 13.00000,
-          "B1" => 12.00000,
-          "C1" => 7.78378,
-          "A2" => 3.08333,
-          "B2" => 13.00000,
-          "C2" => 7.78378,
-        }
+      assert_equal(
+        spreadsheet.evaluate_spreadsheet,
+        "3 2\n13.00000\n12.00000\n7.78378\n3.08333\n13.00000\n7.78378"
       )
     end
     test "should give proper output of a valid spreadsheet (2)" do
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB1\n4 5 *\nA1\nA1 B2 / 2 +\n3\n39 A2 B2 * /"
       })
-      assert_equal(spreadsheet.evaluate_spreadsheet, {
-          "A1" => 20,
-          "B1" => 20,
-          "C1" => 20,
-          "A2" => 8.66667,
-          "B2" => 3,
-          "C2" => 1.5,
-        }
+      assert_equal(
+        spreadsheet.evaluate_spreadsheet,
+        "3 2\n20.00000\n20.00000\n20.00000\n8.66667\n3.00000\n1.50000"
       )
     end
     test "should raise cyclic_error" do
