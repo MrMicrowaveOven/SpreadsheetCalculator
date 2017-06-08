@@ -7,8 +7,9 @@ class SpreadsheetsController < ApplicationController
     # render json: params
     puts params.inspect
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
+    if
 
-    if @spreadsheet.save
+    elsif @spreadsheet.save
       render json: @spreadsheet
     else
       render json: {Post: "failure"}

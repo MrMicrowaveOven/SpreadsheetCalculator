@@ -10,7 +10,9 @@ class Spreadsheet < ApplicationRecord
     spreadsheet_layout = self.instructions.split("\n").first
     spreadsheet_mults = spreadsheet_layout.split
     spreadsheet_size = spreadsheet_mults[0].to_i * spreadsheet_mults[1].to_i
-    raise "incorrect spreadsheet size" if self.instructions.split("\n").length - 1 != spreadsheet_size
+    if self.instructions.split("\n").length - 1 != spreadsheet_size
+      return false
+    end
     true
   end
 
