@@ -16,7 +16,7 @@ class SpreadsheetsController < ApplicationController
     if evaluated_spreadsheet.include?("cyclic dep")
       render status: 400, json: {Error: evaluated_spreadsheet}
     elsif @spreadsheet.save
-      render status: 200, json: evaluated_spreadsheet
+      render status: 200, json: {instructions: evaluated_spreadsheet}
     else
       puts @spreadsheet.inspect
       render status: 400, json: {Post: "failure"}

@@ -26,7 +26,7 @@ class SpreadsheetsControllerTest < ActionDispatch::IntegrationTest
     post spreadsheets_url, params: {
       spreadsheet: {instructions: "1 1\n3"}
     }
-    assert_equal("1 1\n3.00000", @response.body)
+    assert_equal('{"instructions":"1 1\n3.00000"}', @response.body)
     assert_equal(200, @response.status)
   end
 end

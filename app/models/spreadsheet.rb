@@ -34,6 +34,7 @@ class Spreadsheet < ApplicationRecord
     size = instructions.shift
     row_size = size.split.first.to_i
     num_rows = size.split.last.to_i
+    return "0 0" if row_size == 0 || num_rows == 0
 
     @cells = {}
 
