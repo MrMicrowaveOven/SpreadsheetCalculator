@@ -38,7 +38,7 @@ class SpreadsheetTest < ActiveSupport::TestCase
     assert_not spreadsheet.save
   end
 
-  class TableCountCheckTest < ActiveSupport::TestCase
+  class CheckTableCountTest < ActiveSupport::TestCase
     test "should reject a spreadsheet with an incorrect table size" do
       spreadsheet = Spreadsheet.new({instructions: "2 2\nB2\n5\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"})
       assert_not spreadsheet.check_table_count
