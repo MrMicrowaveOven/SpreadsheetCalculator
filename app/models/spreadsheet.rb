@@ -16,6 +16,7 @@ class Spreadsheet < ApplicationRecord
   end
 
   def evaluate_spreadsheet
+    @cyclic_error = false
     instructions = self.instructions.split("\n")
     size = instructions.shift
     row_size = size.split.first.to_i
@@ -38,13 +39,14 @@ class Spreadsheet < ApplicationRecord
     # go through and evaluate each cell
     @cells.each do |loc, value|
       @cells[loc] = evaluate_cell(loc, value).round(5)
+      return @cyclic_error if @cyclic_error
     end
 
     # output final result
     # @cells.values.each do |val|
     #   puts sprintf('%.5f', val)
     # end
-    @cells
+    @cyclic_error || @cells
   end
 
   private
@@ -58,7 +60,9 @@ class Spreadsheet < ApplicationRecord
         # It's a location reference
         if cells_traversed.include? term
           cells_traversed << term
-          raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+          @cyclic_error = "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+          return
+          # raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
         else
           going_deeper = cells_traversed.clone
           going_deeper << term

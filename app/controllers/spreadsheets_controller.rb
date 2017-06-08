@@ -7,8 +7,8 @@ class SpreadsheetsController < ApplicationController
     # render json: params
     puts params.inspect
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
-    if
-
+    if !@spreadsheet.check_table_count
+      render json: {Error: "Incorrect table dimensions"}
     elsif @spreadsheet.save
       render json: @spreadsheet
     else

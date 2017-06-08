@@ -94,13 +94,16 @@ class SpreadsheetTest < ActiveSupport::TestCase
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB2\n4 3 *\nC2\nA1 C2 / 2 +\n13\nB1 A2 / 2 *"
       })
-      exception = assert_raises(Exception) {
-        spreadsheet.evaluate_spreadsheet
-      }
+      # exception = assert_raises(Exception) {
       assert_equal(
-        "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2",
-        exception.message
+        spreadsheet.evaluate_spreadsheet,
+        "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2"
       )
+      # }
+      # assert_equal(
+        # "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2"
+        # exception.message
+      # )
     end
   end
 end
