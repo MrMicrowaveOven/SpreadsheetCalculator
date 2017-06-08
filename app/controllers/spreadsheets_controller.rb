@@ -7,7 +7,7 @@ class SpreadsheetsController < ApplicationController
     # render json: params
     puts params.inspect
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
-    
+
     if @spreadsheet.save
       render json: @spreadsheet
     else
