@@ -5,21 +5,21 @@ class SpreadsheetsController < ApplicationController
 
   def create
     @spreadsheet = Spreadsheet.new(spreadsheet_params)
-    if !@spreadsheet.check_input_format
-      render json: {Error: "Improper input format"}
+    is_input_validated = @spreadsheet.validate_input
+    if is_input_validated != "validated"
+      render status: 400, json: is_input_validated
+      return
     end
-    table_count_check = @spreadsheet.check_table_count
     evaluated_spreadsheet = @spreadsheet.evaluate_spreadsheet
     @spreadsheet = Spreadsheet.new({instructions: evaluated_spreadsheet})
-    if !table_count_check
-      render json: {Error: "Incorrect table dimensions"}
-    elsif evaluated_spreadsheet.include?("cyclic dep")
-      render json: {Error: evaluated_spreadsheet}
+
+    if evaluated_spreadsheet.include?("cyclic dep")
+      render status: 400, json: {Error: evaluated_spreadsheet}
     elsif @spreadsheet.save
-      render json: evaluated_spreadsheet
+      render status: 200, json: evaluated_spreadsheet
     else
       puts @spreadsheet.inspect
-      render json: {Post: "failure"}
+      render status: 400, json: {Post: "failure"}
     end
   end
 
