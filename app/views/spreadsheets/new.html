@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <textarea rows="14" cols="14"></textarea>
-    <button type="button" name="button"></button>
-  </body>
+<html lang="en">
+<head>
+  <title>SpreadsheetCalculator!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="jumbotron text-center">
+  <h1>Let's Build a Spreadsheet!</h1>
+  <p class="description">This is a Spreadsheet Calculator application, which accepts both mathematical statements and cell references as input.</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 class="title">Input</h3>
+      <form role = "form">
+         <div class = "form-group">
+            <label for = "input">Spreadsheet Instructions</label>
+            <textarea class = "form-control" rows = "10"></textarea>
+         </div>
+      </form>
+    </div>
+    <div class="col-sm-6">
+      <h3 class="title">Output</h3>
+      <table class = "table table-bordered table-responsive">
+        <caption>Bordered Table Layout</caption>
+
+        <thead>
+          <tr>
+             <th>Name</th>
+             <th>City</th>
+             <th>Pincode</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+             <td>Tanmay</td>
+             <td>Bangalore</td>
+             <td>560001</td>
+          </tr>
+
+          <tr>
+             <td>Sachin</td>
+             <td>Mumbai</td>
+             <td>400003</td>
+          </tr>
+
+          <tr>
+             <td>Uma</td>
+             <td>Pune</td>
+             <td>411027</td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+</div>
+
+</body>
 </html>

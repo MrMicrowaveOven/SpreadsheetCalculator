@@ -1,5 +1,24 @@
 {
-  "name": "SpreadsheetCalculator",
+  "name": "spreadsheet-calculator",
   "private": true,
-  "dependencies": {}
+  "dependencies": {},
+  "description": "Provided a basic Ruby \"spreadsheet calculator\" script, refactor and convert into a basic Rails application. More information about the spreadsheet calculator is included toward the bottom of these instructions.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/upcounsel/uc-challenge-MrMicrowaveOven.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/upcounsel/uc-challenge-MrMicrowaveOven/issues"
+  },
+  "homepage": "https://github.com/upcounsel/uc-challenge-MrMicrowaveOven#readme"
 }
