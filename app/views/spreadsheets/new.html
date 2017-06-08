@@ -15,7 +15,7 @@
   <p class="description">This is a Spreadsheet Calculator application, which accepts both mathematical statements and cell references as input.</p>
 </div>
 
-<button type="button" name="button" class="btn btn-default btn-lg" id="evaluate_button">Evaluate!</button>
+<button type="button" name="button" class="btn btn-default btn-lg" id="evaluate_button" onclick=evaluate_spreadsheet()>Evaluate!</button>
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
@@ -23,7 +23,7 @@
       <form role = "form">
          <div class = "form-group">
             <label for = "input">Spreadsheet Instructions</label>
-            <textarea class = "form-control" rows = "10"></textarea>
+            <textarea class = "form-control" id="input_text" rows = "10"></textarea>
          </div>
       </form>
     </div>
@@ -43,23 +43,23 @@
         <tbody>
           <tr>
              <th scope="row">1</th>
-             <td>Tanmay</td>
-             <td>Bangalore</td>
-             <td>560001</td>
+             <td></td>
+             <td></td>
+             <td></td>
           </tr>
 
           <tr>
              <th scope="row">2</th>
-             <td>Sachin</td>
-             <td>Mumbai</td>
-             <td>400003</td>
+             <td></td>
+             <td></td>
+             <td></td>
           </tr>
 
           <tr>
              <th scope="row">3</th>
-             <td>Uma</td>
-             <td>Pune</td>
-             <td>411027</td>
+             <td></td>
+             <td></td>
+             <td></td>
           </tr>
         </tbody>
 
@@ -67,6 +67,5 @@
     </div>
   </div>
 </div>
-
 </body>
 </html>
