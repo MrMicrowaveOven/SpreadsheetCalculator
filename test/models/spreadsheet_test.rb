@@ -74,13 +74,13 @@ class SpreadsheetTest < ActiveSupport::TestCase
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB2\n\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
       })
-      assert_equal({Error: "Improper input format"}, spreadsheet.validate_input)
+      assert_equal({error: "Improper input format"}, spreadsheet.validate_input)
     end
     test "should not validate with incorrect spreadsheet size" do
       spreadsheet = Spreadsheet.new({
         instructions: "2 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
       })
-      assert_equal({Error: "Incorrect table dimensions"}, spreadsheet.validate_input)
+      assert_equal({error: "Incorrect table dimensions"}, spreadsheet.validate_input)
     end
   end
 
