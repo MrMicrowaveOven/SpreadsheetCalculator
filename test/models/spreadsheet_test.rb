@@ -1,11 +1,10 @@
 require 'test_helper'
 
 class SpreadsheetTest < ActiveSupport::TestCase
-  # setup do
-  #   @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
-  #   @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
-  #   @standard_spreadsheet = Spreadsheet.new({instructions: })
-  # end
+  setup do
+    @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+    @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2.00000"})
+  end
   test "should not save an empty spreadsheet" do
     spreadsheet = Spreadsheet.new
     assert_not spreadsheet.save
@@ -13,7 +12,7 @@ class SpreadsheetTest < ActiveSupport::TestCase
   test "should not allow initialization of a spreadsheet with an incorrect key" do
     exception = assert_raises(Exception) {
       spreadsheet = Spreadsheet.new({
-        instluctions: "3 2\n3.00000\n15.00000\n7.78382\n32.39347\n13.00000\n42.32423"
+        instluctions: "1 1\n2.00000"
       })
     }
     assert_equal("unknown attribute 'instluctions' for Spreadsheet.", exception.message)
@@ -25,12 +24,10 @@ class SpreadsheetTest < ActiveSupport::TestCase
     assert_not spreadsheet.save
   end
   test "should save a spreadsheet with a blank size" do
-    spreadsheet = Spreadsheet.new({instructions: "0 0"})
-    assert spreadsheet.save
+    assert @empty_spreadsheet.save
   end
   test "should save a spreadsheet with a a single cell" do
-    spreadsheet = Spreadsheet.new({instructions: "1 1\n3.00000"})
-    assert spreadsheet.save
+    assert @single_cell_spreadsheet.save
   end
   test "should save a standard spreadsheet" do
     spreadsheet = Spreadsheet.new({instructions: "3 2\n156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
@@ -54,15 +51,15 @@ class SpreadsheetTest < ActiveSupport::TestCase
   end
 
   class ValidateInputTest < ActiveSupport::TestCase
+    setup do
+      @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
+    end
     test "should validate for empty 0 x 0 instructions" do
-      spreadsheet = Spreadsheet.new({instructions: "0 0"})
-      assert_equal("validated", spreadsheet.validate_input)
+      assert_equal("validated", @empty_spreadsheet.validate_input)
     end
     test "should validate for single-cell 1 x 1 instructions" do
-      spreadsheet = Spreadsheet.new({
-        instructions: "1 1\n4"
-      })
-      assert_equal("validated", spreadsheet.validate_input)
+      assert_equal("validated", @single_cell_spreadsheet.validate_input)
     end
     test "should validate for standard instructions" do
       spreadsheet = Spreadsheet.new({
@@ -85,17 +82,15 @@ class SpreadsheetTest < ActiveSupport::TestCase
   end
 
   class CheckInputFormatTest < ActiveSupport::TestCase
+    setup do
+      @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
+    end
     test "should return true for empty 0 x 0 instructions" do
-      spreadsheet = Spreadsheet.new({
-        instructions: "0 0"
-      })
-      assert spreadsheet.check_input_format
+      assert @empty_spreadsheet.check_input_format
     end
     test "should return true for single-cell 1 x 1 instructions" do
-      spreadsheet = Spreadsheet.new({
-        instructions: "1 1\n4"
-      })
-      assert spreadsheet.check_input_format
+      assert @single_cell_spreadsheet.check_input_format
     end
     test "should return true for valid instructions" do
       spreadsheet = Spreadsheet.new({
@@ -112,21 +107,23 @@ class SpreadsheetTest < ActiveSupport::TestCase
   end
 
   class CheckTableCountTest < ActiveSupport::TestCase
+    setup do
+      @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
+    end
     test "should return false when passed a spreadsheet with an incorrect table size" do
       spreadsheet = Spreadsheet.new({instructions: "2 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
       assert_not spreadsheet.check_table_count
     end
     test "should return true when passed an empty 0 x 0 spreadsheet " do
-      spreadsheet = Spreadsheet.new({instructions: "0 0"})
-      assert spreadsheet.check_table_count
+      assert @empty_spreadsheet.check_table_count
     end
     test "should return false when passed a single-cell 1 x 0 spreadsheet " do
       spreadsheet = Spreadsheet.new({instructions: "1 0\n3.00000"})
       assert_not spreadsheet.check_table_count
     end
     test "should return true when passed a single-cell 1 x 1 spreadsheet " do
-      spreadsheet = Spreadsheet.new({instructions: "1 1\n3.00000"})
-      assert spreadsheet.check_table_count
+      assert @single_cell_spreadsheet.check_table_count
     end
     test "should return true when passed a spreadsheet with a correct table size" do
       spreadsheet = Spreadsheet.new({instructions: "3 2\n 156.32346\n4.00000\n142.13422\n2.00000\n13.00000\n2.00000"})
@@ -135,6 +132,10 @@ class SpreadsheetTest < ActiveSupport::TestCase
   end
 
   class EvaluateSpreadsheetTest < ActiveSupport::TestCase
+    setup do
+      @empty_spreadsheet = Spreadsheet.new({instructions: "0 0"})
+      @single_cell_spreadsheet = Spreadsheet.new({instructions: "1 1\n2"})
+    end
     test "should give proper output of a valid spreadsheet (1)" do
       spreadsheet = Spreadsheet.new({
         instructions: "3 2\nB2\n4 3 *\nC2\nA1 B1 / 2 +\n13\nB1 A2 / 2 *"
@@ -163,5 +164,4 @@ class SpreadsheetTest < ActiveSupport::TestCase
       )
     end
   end
-
 end

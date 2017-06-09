@@ -31,6 +31,4 @@ class SpreadsheetsControllerTest < ActionDispatch::IntegrationTest
       assert_equal(201, @response.status)
     end
   end
-  class SpreadsheetsGetTest < ActionDispatch::IntegrationTest
-  end
 end
