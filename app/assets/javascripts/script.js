@@ -39,6 +39,9 @@ function showAlert(errorText) {
   } else if (errorText.match(/Incorrect table dimensions/)) {
     $("#incorrect_dims_alert").slideDown();
   } else if (errorText.match(/cyclic/)) {
+    $("#cell_cycle").html(
+      errorText.match(/([A-Z]+[0-9]+)(\s>>\s[A-Z]+[0-9])*/)[0]
+    );
     $("#cyclic_alert").slideDown();
   }
   setTimeout(function() {
