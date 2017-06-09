@@ -13,5 +13,5 @@
 //= require rails-ujs
 //= require turbolinks
 //= require script.js
-//= require spreadsheetInput.js
 //= require_tree .
+//= require spreadsheetInput.js
