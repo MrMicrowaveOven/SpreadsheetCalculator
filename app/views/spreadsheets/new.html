@@ -10,83 +10,82 @@
 </head>
 <body>
 
-<div class="jumbotron text-center" id="heading_text">
-  <h1>Let's Build a Spreadsheet!</h1>
-  <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  Your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  Try it out!</p>
-</div>
+  <div class="jumbotron text-center" id="heading_text">
+    <h1>Let's Build a Spreadsheet!</h1>
+    <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  Your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  Try it out!</p>
+  </div>
 
-<button type="button" name="button" class="btn btn-primary btn-lg" id="evaluate_button" onclick=evaluateSpreadsheet()>Evaluate!</button>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6">
-      <h3 class="title">Input</h3>
-      <form role = "form">
-         <div class = "form-group">
+  <button type="button" name="button" class="btn btn-primary btn-lg" id="evaluate_button" onclick=evaluateSpreadsheet()>Evaluate!</button>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 class="title">Input</h3>
+        <form role = "form">
+          <div class = "form-group">
             <textarea class = "form-control" id="inputText" rows = "10">1 1
-4</textarea>
-         </div>
-         <div id="improper_input_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+  4</textarea>
+          </div>
+          <div id="improper_input_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
             <strong>Oh snap!</strong> Looks like you may have formatted your instructions incorrectly.  Try again!
-         </div>
-         <div id="incorrect_dims_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+          </div>
+          <div id="incorrect_dims_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
             <strong>Oh snap!</strong> Your table dimensions do not match the number of cells you've given.  Try again!
-         </div>
-         <div id="cyclic_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+          </div>
+          <div id="cyclic_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
             <strong>Infinite cycle alert!</strong>  You've got these cells going in a loop: <div id="cell_cycle"></div>Try again!
-         </div>
-         <div id="reference_error_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+          </div>
+          <div id="reference_error_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
             <strong>Reference Error!</strong>  You're referencing <div id="reference_error_cell"></div>, which is not in the spreadsheet.  Try again!
-         </div>
-         <div id="polish_notation_error_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+          </div>
+          <div id="polish_notation_error_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
             <strong>Notation Error!</strong>  You must use Reverse Polish notation.  Instead of `1 + 2`, use `1 2 +`.  Try again!
-         </div>
-      </form>
+          </div>
+        </form>
+      </div>
 
-    </div>
-
-    <div class="col-sm-6">
-      <h3 class="title">Output</h3>
-      <div class="" id="table-container">
+      <div class="col-sm-6">
+        <h3 class="title">Output</h3>
+        <div class="" id="table-container">
 
 
-      <table class = "table table-bordered table-responsive" id="spreadsheet_results">
-        <!-- <caption>Bordered Table Layout</caption> -->
-        <thead>
-          <tr id="columnHeader">
-             <th>#</th>
-             <th>A</th>
-             <th>B</th>
-             <th>C</th>
-          </tr>
-        </thead>
+          <table class = "table table-bordered table-responsive" id="spreadsheet_results">
+            <!-- <caption>Bordered Table Layout</caption> -->
+            <thead>
+              <tr id="columnHeader">
+                <th>#</th>
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+              </tr>
+            </thead>
 
-        <tbody id="rows">
-          <tr>
-             <th scope="row">1</th>
-             <td></td>
-             <td></td>
-             <td></td>
-          </tr>
+            <tbody id="rows">
+              <tr>
+                <th scope="row">1</th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
 
-          <tr>
-             <th scope="row">2</th>
-             <td></td>
-             <td></td>
-             <td></td>
-          </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
 
-          <tr>
-             <th scope="row">3</th>
-             <td></td>
-             <td></td>
-             <td></td>
-          </tr>
-        </tbody>
+              <tr>
+                <th scope="row">3</th>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
 
-        </table>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </body>
 </html>
