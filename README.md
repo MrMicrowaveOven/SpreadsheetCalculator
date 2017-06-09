@@ -1,4 +1,6 @@
-# UpCounsel Coding Challenge
+# Spreadsheet Calculator
+
+## The Challenge
 
 Provided a basic Ruby "spreadsheet calculator" script, refactor and convert into a basic Rails application. More information about the spreadsheet calculator is included toward the bottom of these instructions.
 
