@@ -1,7 +1,6 @@
 class Spreadsheet < ApplicationRecord
   ALPHABET = ('A'..'Z').to_a
   REF_REGEX = /^([A-Z]+)([0-9]+)$/
-    # VALID_INSTRUCTIONS_REGEX =
   validates :instructions, presence: true,
   format: { with: /\A([0-9]+\s[0-9]+)$(\n^[0-9]+\.[0-9]{5})*\Z/, message: "improper format" }
 

@@ -18,7 +18,6 @@ function makeRequest(spreadsheetInstructions) {
     data: {spreadsheet: {instructions: spreadsheetInstructions}},
     dataType: "json",
     success: function (res) {
-      console.log(res);
       if (res.error) {
         showAlert(res.error);
       } else {
