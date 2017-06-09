@@ -1,6 +1,4 @@
-var ALPHABET = ["A","B", "C", "D", "E", "F", "G", "H",
-  "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
-  "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var ALPHABET = buildColumns();
 
 function evaluateSpreadsheet() {
   var spreadsheetInstructions = getInput();
@@ -77,4 +75,20 @@ function displayResults(res) {
       currentRow.append("<td>" + cellValue + "</td>");
     }
   }
+}
+
+function buildColumns() {
+  var alphabet = ["A","B", "C", "D", "E", "F", "G", "H",
+  "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+  "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+  var alphabetPlex = ["A","B", "C", "D", "E", "F", "G", "H",
+  "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
+  "S", "T", "U", "V", "W", "X", "Y", "Z"];
+  alphabet.forEach(function(firstLetter) {
+    alphabet.forEach(function(secondLetter) {
+      alphabetPlex.push(firstLetter + secondLetter);
+    });
+  });
+  return alphabetPlex;
 }
