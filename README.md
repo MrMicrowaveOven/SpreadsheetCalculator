@@ -12,7 +12,7 @@ Make a Spreadsheet Evaluator that will allow mathematical calculations (Reverse 
 
 2. What kind of automated testing do I want to use?  I'm familiar with RSpec, and I love it.  Easy to use, easy to read.  However, Rails has that built-in testing library TestUnit that I've always wanted to try.  I figured I'd start with TestUnit since there's no installation or anything involved, and make the switch if it really sucks.
 
-3. How do I want things stored in the database?  Instructions are given in string format, then evaluated as a JSON.  Since the objects are given as a string, then
+3. How do I want things stored in the database?  Instructions are given in string format, then evaluated as a JSON.  Since the objects are given as a string, then I'll probably keep it as such to begin with.  If a time comes when I think it'll be easier to store `@cells` as an object, I can make the switch.
 
 ## Rails Setup
 
