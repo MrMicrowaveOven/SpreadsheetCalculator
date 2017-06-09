@@ -18,14 +18,18 @@ function makeRequest(spreadsheetInstructions) {
     data: {spreadsheet: {instructions: spreadsheetInstructions}},
     dataType: "json",
     success: function (res) {
-      $('.alert').fadeOut();
-      displayResults(res);
+      console.log(res);
+      if (res.error) {
+        showAlert(res.error);
+      } else {
+        $('.alert').fadeOut();
+        displayResults(res);
+      }
     },
     error: function (xhr, status, error) {
-      showAlert(xhr.responseText);
-      // console.log(xhr);
-      // console.log(status);
-      // console.log(error);
+      console.log(xhr);
+      console.log(status);
+      console.log(error);
     }
   });
 }

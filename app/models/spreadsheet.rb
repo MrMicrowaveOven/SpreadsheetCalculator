@@ -7,9 +7,9 @@ class Spreadsheet < ApplicationRecord
 
   def validate_input
     if !check_input_format
-      return {Error: "Improper input format"}
+      return {error: "Improper input format"}
     elsif !check_table_count
-      return {Error: "Incorrect table dimensions"}
+      return {error: "Incorrect table dimensions"}
     end
     return "validated"
   end
