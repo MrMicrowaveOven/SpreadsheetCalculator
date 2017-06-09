@@ -48,6 +48,8 @@ function showAlert(errorText) {
       errorText.match(/[A-Z]+[0-9]+/)[0]
     );
     $("#reference_error_alert").slideDown();
+  } else if (errorText.match(/Notation/)) {
+    $("#polish_notation_error_alert").slideDown();
   }
   setTimeout(function() {
     $(".alert").fadeOut();

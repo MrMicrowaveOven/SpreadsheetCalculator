@@ -12,7 +12,7 @@ Make a Spreadsheet Evaluator that will allow mathematical calculations (Reverse 
 
 2. What kind of automated testing do I want to use?  I'm familiar with RSpec, and I love it.  Easy to use, easy to read.  However, Rails has that built-in testing library TestUnit that I've always wanted to try.  I figured I'd start with TestUnit since there's no installation or anything involved, and make the switch if it really sucks.
 
-3. How do I want things stored in the database?  Instructions are given in string format, then evaluated as a JSON.  Since the objects are given as a string, then I'll probably keep it as such to begin with.  If a time comes when I think it'll be easier to store `@cells` as an object, I can make the switch.
+3. How do I want things stored in the database?  Instructions are given in string format, then evaluated as a JSON.  Since the objects are given as a string, I'll probably keep it as such to begin with.  If a time comes when I think it'll be easier to store `@cells` as an object, I can make the switch.
 
 ## Rails Setup
 
@@ -22,30 +22,30 @@ One bit that made the Rails implementation a bit awkward was the amount of work 
 
 ### Error Handling
 
-Validations and evaluations eventually let to 4 different errors.
-1. Random symbols that the system doesn't know what to do with.
+Validations and evaluations eventually let to 5 different errors.
+1. Random symbols or letters that the system doesn't know what to do with.
 2. Incorrect table size.
 3. Cyclic error: References creating a cycle.
 4. Reference error: Referring to a cell that isn't in the table.
+5. Incorrect Reverse Polish Notation: Placing symbols before there are enough numbers to work with.
 
-I made these each to respond with unique JSONS so the front-end could display the errors appropriately.  There is one more error I can think of that I'll handle later down the line.
-1. Incorrct Reverse Polish Notation: Placing symbols before numbers and so on.  This can probably be handled in `evaluate_cell` once I have the chance.
+I made each of these to respond with unique JSONS so the front-end could display the errors appropriately.
 
 ### Test Unit
 
-Testing made all of this very straight-forward.  Having said that, I don't think I'm likely to choose TestUnit again.  While it came ready-to-go with Rails, and references were easy, there were some things they didn't really think of.  Grouping tests together, while possible, is not part of the design (not in the docs).  I had to make separate classes (thanks StackOverflow!).  It has an automatic stubbed database with sample data, so you don't need to set it up yourself.  However, this makes it awkward to test things like `index`, since it's randomly generated.  Even if it involves more work, I'd rather stub the database myself and have more control over its testing.
+Testing made all of this very straight-forward.  Having said that, I don't think I'm likely to choose TestUnit again.  While it came ready-to-go with Rails, and references to the model and controller were easy, there were some things they didn't really think of.  Grouping tests together, while possible, is not part of the design (not in the docs).  I had to make separate classes (thanks StackOverflow!).  It has an automatic stubbed database with sample data, so you don't need to set it up yourself.  However, this makes it awkward to test things like `index`, since it's randomly generated.  Even if it involves more work, I'd rather stub the database myself and have more control over its testing.
 
 ## Front-end
 
-Bootstrap is always a lot of fun.  There's a great deal of "Okay, now I need a button.  Ooooh, I'll use that one!", which was quick and easy.  I stuck with the simple two-column format since I figured that would make it easy to show input on one side, and the graph on the other.  Added a simple button which took the text input and stuck it in a POST request, and threw the response into a table.  BOOM, done.  I even found some quick error message displays to show the user what went wrong.
+Bootstrap is always a lot of fun.  There's a great deal of "Okay, now I need a button.  Ooooh, I'll use that one!", which was quick and easy.  I stuck with the simple two-column format since I figured that would make it easy to show input on one side, and the graph on the other.  Added a simple button which took the text input and stuck it in a POST request, and threw the response into a table.  BOOM, done.  I even found some quick error message displays to show the user if something went wrong.
 
 ## Where the Project is Now
 
-The project is now live, and can be found [here](https://spreadsheet-calculator.herokuapp.com/).  While the minimum requirements are done, I still want to handle that last validation and maybe throw in some bonus points.  Making a spreadsheet-like interface would probably make client-side validation much easier (working with cells, not the whole spreadsheet as a string).
+The project is now live, and can be found [here](https://spreadsheet-calculator.herokuapp.com/).  While the minimum requirements are done, I still want to throw in some bonus points.  Making a spreadsheet-like interface would probably make client-side validation much easier (working with cells, not the whole spreadsheet as a string).
 
 If you would like to view the database, it can be found [here](https://spreadsheet-calculator.herokuapp.com/spreadsheets).  To purge, just send a DELETE request to https://spreadsheet-calculator.herokuapp.com/spreadsheets.
 
-# UpCounsel Coding Challenge
+# UpCounsel Coding Challenge Specifics
 
 Provided a basic Ruby "spreadsheet calculator" script, refactor and convert into a basic Rails application. More information about the spreadsheet calculator is included toward the bottom of these instructions.
 

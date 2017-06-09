@@ -243,5 +243,15 @@ class SpreadsheetTest < ActiveSupport::TestCase
       })
       assert_equal(spreadsheet.evaluate_spreadsheet, "Reference error: B2 not found in spreadsheet")
     end
+    test "should raise error when improper Reverse Polish notation is found" do
+      spreadsheet1 = Spreadsheet.new({
+        instructions: "1 1\n1 * 1"
+      })
+      spreadsheet2 = Spreadsheet.new({
+        instructions: "1 1\n*"
+      })
+      assert_equal("Notation error: Improper Reverse Polish Notation detected", spreadsheet1.evaluate_spreadsheet)
+      assert_equal("Notation error: Improper Reverse Polish Notation detected", spreadsheet2.evaluate_spreadsheet)
+    end
   end
 end

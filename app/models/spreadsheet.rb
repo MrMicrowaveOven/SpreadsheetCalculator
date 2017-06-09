@@ -28,7 +28,7 @@ class Spreadsheet < ApplicationRecord
   end
 
   def evaluate_spreadsheet
-    @reference_error = false
+    @error = false
     instructions = self.instructions.split("\n")
     size = instructions.shift
     row_size = size.split.first.to_i
@@ -53,7 +53,7 @@ class Spreadsheet < ApplicationRecord
     # go through and evaluate each cell
     @cells.each do |loc, value|
       @cells[loc] = evaluate_cell(loc, value)
-      return @reference_error if @reference_error
+      return @error if @error
     end
 
     # output final result
@@ -62,7 +62,7 @@ class Spreadsheet < ApplicationRecord
       output_string += "\n"
       output_string += sprintf('%.5f', val)
     end
-    @reference_error || output_string
+    @error || output_string
   end
 
   private
@@ -76,7 +76,7 @@ class Spreadsheet < ApplicationRecord
         # It's a location reference
         if cells_traversed.include? term
           cells_traversed << term
-          @reference_error = "Cyclic error detected. trace: #{cells_traversed.join(' >> ')}"
+          @error = "Cyclic error detected. trace: #{cells_traversed.join(' >> ')}"
           return
           # raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
         else
@@ -93,12 +93,16 @@ class Spreadsheet < ApplicationRecord
       elsif ["-", "/", "*", "+", "**"].include?(term)
         # It's an operation
         operands = evaluation.pop(2)
+        if operands.length != 2
+          @error = "Notation error: Improper Reverse Polish Notation detected"
+          return
+        end
         evaluation << operands[0].send(term, operands[1])
       elsif term.match(/\A([0-9]+)(\.)*([0-9]*)\z/)
         # It's a number
         evaluation << term.to_f
       else
-        @reference_error = "Reference error: #{term} not found in spreadsheet"
+        @error = "Reference error: #{term} not found in spreadsheet"
         return
       end
     end
