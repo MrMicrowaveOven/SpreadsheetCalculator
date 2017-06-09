@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .title {
   text-align: center;
+  height: 33px;
 }
 
 .description {
@@ -25,4 +26,18 @@
 #heading_text {
   padding-top: 20px;
   padding-bottom: 20px;
+}
+
+td {
+  height: 43.33px;
+}
+
+.columnLabel, .rowLabel, .cellContents {
+  text-align: center;
+}
+
+.cellInput {
+  margin: auto;
+  display: block;
+  width: 80%;
 }

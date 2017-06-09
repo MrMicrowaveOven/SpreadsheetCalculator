@@ -74,23 +74,25 @@ function displayResults(res) {
   $("#columnHeader").empty();
   $("#rows").empty();
 
-  $("#columnHeader").append("<th>#</th>");
+  $("#columnHeader").append("<th class='rowLabel' scope='row'>#</th>");
 
   for (var columnIndex = 0; columnIndex < numColumns; columnIndex++) {
-    $("#columnHeader").append("<th>" + ALPHABET[columnIndex] + "</th>");
+    $("#columnHeader").append(
+      "<th class='columnLabel'>" + ALPHABET[columnIndex] + "</th>"
+    );
   }
   var currentRow;
   var cellValue;
   for (var rowIndex = 1; rowIndex <= numRows; rowIndex++) {
     $("#rows").append(
       '<tr id="row' + rowIndex
-      + '"><th scope="row">' + rowIndex
+      + '"><th class="rowLabel" scope="row">' + rowIndex
       + '</th></tr>'
     );
     currentRow = $("#row" + rowIndex);
     for (var columnIndex = 0; columnIndex < numColumns; columnIndex++) {
       cellValue = tableLayout.shift();
-      currentRow.append("<td>" + cellValue + "</td>");
+      currentRow.append("<td class=cellContents>" + cellValue + "</td>");
     }
   }
 }
