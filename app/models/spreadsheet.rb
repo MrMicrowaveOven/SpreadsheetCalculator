@@ -14,7 +14,7 @@ class Spreadsheet < ApplicationRecord
   end
 
   def check_input_format
-    !self.instructions.match(/\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+)((\s(([A-Z]+)([0-9]+)|[0-9]+|[-+*\/]+))*))*))\Z/).to_s.empty?
+    !self.instructions.match(/\A([0-9]+\s[0-9]+)$(((\n^(([A-Z]+)([0-9]+)|[0-9]+)((\s(([A-Z]+)([0-9]+)|[0-9]+|[-+*\/]|\*{2}))*))*))\Z/).to_s.empty?
   end
 
   def check_table_count

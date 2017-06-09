@@ -104,6 +104,50 @@ class SpreadsheetTest < ActiveSupport::TestCase
       })
       assert_not spreadsheet.check_input_format
     end
+    test "should allow addition (+)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 +"
+      })
+      assert_equal(true, spreadsheet.check_input_format)
+    end
+    test "should allow subtraction (-)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 -"
+      })
+      assert_equal(true, spreadsheet.check_input_format)
+    end
+    test "should allow division (/)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 /"
+      })
+      assert_equal(true, spreadsheet.check_input_format)
+    end
+    test "should allow multiplication (*)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 *"
+      })
+      assert_equal(true, spreadsheet.check_input_format)
+    end
+    test "should allow exponentiation (**)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 **"
+      })
+      assert_equal(true, spreadsheet.check_input_format)
+    end
+    test "should not allow double symbols (++, --, or //)" do
+      spreadsheetAdd = Spreadsheet.new({
+        instructions: "1 1\n2 4 ++"
+      })
+      spreadsheetSub = Spreadsheet.new({
+        instructions: "1 1\n2 4 --"
+      })
+      spreadsheetDiv = Spreadsheet.new({
+        instructions: "1 1\n2 4 //"
+      })
+      assert_equal(false, spreadsheetAdd.check_input_format)
+      assert_equal(false, spreadsheetSub.check_input_format)
+      assert_equal(false, spreadsheetDiv.check_input_format)
+    end
   end
 
   class CheckTableCountTest < ActiveSupport::TestCase
@@ -144,6 +188,36 @@ class SpreadsheetTest < ActiveSupport::TestCase
         spreadsheet.evaluate_spreadsheet,
         "3 2\n13.00000\n12.00000\n7.78378\n3.08333\n13.00000\n7.78378"
       )
+    end
+    test "should allow addition (+)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 +"
+      })
+      assert_equal("1 1\n6.00000", spreadsheet.evaluate_spreadsheet)
+    end
+    test "should allow subtraction (-)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 -"
+      })
+      assert_equal("1 1\n-2.00000", spreadsheet.evaluate_spreadsheet)
+    end
+    test "should allow division (/)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 /"
+      })
+      assert_equal("1 1\n0.50000", spreadsheet.evaluate_spreadsheet)
+    end
+    test "should allow multiplication (*)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 *"
+      })
+      assert_equal("1 1\n8.00000", spreadsheet.evaluate_spreadsheet)
+    end
+    test "should allow exponentiation (**)" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "1 1\n2 4 **"
+      })
+      assert_equal("1 1\n16.00000", spreadsheet.evaluate_spreadsheet)
     end
     test "should give proper output of a valid spreadsheet (2)" do
       spreadsheet = Spreadsheet.new({
