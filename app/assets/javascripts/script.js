@@ -6,7 +6,15 @@ function evaluateSpreadsheet() {
 }
 
 function getInput() {
-  return $("#inputText")[0].value;
+  var values = [];
+  var numColumns = $("#numColumns")[0].value;
+  var numRows = $("#numRows")[0].value;
+  var size = numColumns + " " + numRows;
+  $(".cellInput").toArray().forEach(function(cell) {
+    values.push(cell.value);
+  });
+  var instructions = size + "\n" + values.join("\n");
+  return instructions;
 }
 
 function makeRequest(spreadsheetInstructions) {

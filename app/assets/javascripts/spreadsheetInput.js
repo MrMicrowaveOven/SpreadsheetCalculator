@@ -18,7 +18,7 @@ document.addEventListener("turbolinks:load", function() {
       currentRow = $("#inputRow" + rowIndex);
       for (var columnIndex = 0; columnIndex < numColumns; columnIndex++) {
         currentRow.append(
-          '<td><input type="text" name="" value="" size="5px"></td>"'
+          '<td><input type="text" class="cellInput" size="5px"></td>"'
         );
       }
     }

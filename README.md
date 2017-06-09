@@ -41,7 +41,7 @@ Bootstrap is always a lot of fun.  There's a great deal of "Okay, now I need a b
 
 ## Where the Project is Now
 
-The project is now live, and can be found [here](https://spreadsheet-calculator.herokuapp.com/).  While the minimum requirements are done, I still want to throw in some bonus points.  Making a spreadsheet-like interface would probably make client-side validation much easier (working with cells, not the whole spreadsheet as a string).
+The project is now live, and can be found [here](https://spreadsheet-calculator.herokuapp.com/).  Minimum requirements are done, and I threw in the spreadsheet-like interface which will probably make client-side validation easier (working with cells, not the whole spreadsheet as a string).
 
 If you would like to view the database, it can be found [here](https://spreadsheet-calculator.herokuapp.com/spreadsheets).  To purge, just send a DELETE request to https://spreadsheet-calculator.herokuapp.com/spreadsheets.
 
