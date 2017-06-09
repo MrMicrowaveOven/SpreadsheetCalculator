@@ -2,7 +2,7 @@
 
 ## The Challenge
 
-Make a Spreadsheet Evaluator that will allow mathematical calculations (Reverse Polish notation) and references to other cells.  More details below my completion notes.
+Make a Spreadsheet Evaluator that will allow mathematical calculations (Reverse Polish notation) and references to other cells.  [Here's](https://spreadsheet-calculator.herokuapp.com/) a link to the live version, and [here's](https://spreadsheet-calculator.herokuapp.com/spreadsheets) where the database can be found.  More details on the project specifications can be found below my completion notes.
 
 # Benjamin's Progress Notes
 
