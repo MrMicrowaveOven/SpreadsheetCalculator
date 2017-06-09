@@ -38,11 +38,16 @@ function showAlert(errorText) {
     $("#improper_input_alert").slideDown();
   } else if (errorText.match(/Incorrect table dimensions/)) {
     $("#incorrect_dims_alert").slideDown();
-  } else if (errorText.match(/cyclic/)) {
+  } else if (errorText.match(/Cyclic/)) {
     $("#cell_cycle").html(
       errorText.match(/([A-Z]+[0-9]+)(\s>>\s[A-Z]+[0-9])*/)[0]
     );
     $("#cyclic_alert").slideDown();
+  } else if (errorText.match(/Reference/)) {
+    $("#reference_error_cell").html(
+      errorText.match(/[A-Z]+[0-9]+/)[0]
+    );
+    $("#reference_error_alert").slideDown();
   }
   setTimeout(function() {
     $(".alert").fadeOut();

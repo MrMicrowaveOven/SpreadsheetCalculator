@@ -13,7 +13,7 @@ class SpreadsheetsController < ApplicationController
     evaluated_spreadsheet = @spreadsheet.evaluate_spreadsheet
     @spreadsheet = Spreadsheet.new({instructions: evaluated_spreadsheet})
 
-    if evaluated_spreadsheet.include?("cyclic dep")
+    if evaluated_spreadsheet.match(/error/)
       render status: 200, json: {error: evaluated_spreadsheet}
     elsif @spreadsheet.save
       render status: 201, json: {instructions: evaluated_spreadsheet}

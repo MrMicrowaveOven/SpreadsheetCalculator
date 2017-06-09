@@ -28,7 +28,7 @@ class Spreadsheet < ApplicationRecord
   end
 
   def evaluate_spreadsheet
-    @cyclic_error = false
+    @reference_error = false
     instructions = self.instructions.split("\n")
     size = instructions.shift
     row_size = size.split.first.to_i
@@ -52,8 +52,8 @@ class Spreadsheet < ApplicationRecord
 
     # go through and evaluate each cell
     @cells.each do |loc, value|
-      @cells[loc] = evaluate_cell(loc, value).round(5)
-      return @cyclic_error if @cyclic_error
+      @cells[loc] = evaluate_cell(loc, value)
+      return @reference_error if @reference_error
     end
 
     # output final result
@@ -62,7 +62,7 @@ class Spreadsheet < ApplicationRecord
       output_string += "\n"
       output_string += sprintf('%.5f', val)
     end
-    @cyclic_error || output_string
+    @reference_error || output_string
   end
 
   private
@@ -72,11 +72,11 @@ class Spreadsheet < ApplicationRecord
 
     value.to_s.split.each do |term|
 
-      if reference_match = term.match(REF_REGEX)
+      if reference_match = term.match(REF_REGEX) && @cells[term]
         # It's a location reference
         if cells_traversed.include? term
           cells_traversed << term
-          @cyclic_error = "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+          @reference_error = "Cyclic error detected. trace: #{cells_traversed.join(' >> ')}"
           return
           # raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
         else
@@ -94,9 +94,12 @@ class Spreadsheet < ApplicationRecord
         # It's an operation
         operands = evaluation.pop(2)
         evaluation << operands[0].send(term, operands[1])
-      else
+      elsif term.match(/\A([0-9]+)(\.)*([0-9]*)\z/)
         # It's a number
         evaluation << term.to_f
+      else
+        @reference_error = "Reference error: #{term} not found in spreadsheet"
+        return
       end
     end
 

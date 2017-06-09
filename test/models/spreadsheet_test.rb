@@ -160,8 +160,14 @@ class SpreadsheetTest < ActiveSupport::TestCase
       })
       assert_equal(
         spreadsheet.evaluate_spreadsheet,
-        "cyclic dep detectected. trace: C1 >> C2 >> A2 >> C2"
+        "Cyclic error detected. trace: C1 >> C2 >> A2 >> C2"
       )
+    end
+    test "should raise error when cells are referenced that are not in the spreadsheet" do
+      spreadsheet = Spreadsheet.new({
+        instructions: "2 1\nB2\n5"
+      })
+      assert_equal(spreadsheet.evaluate_spreadsheet, "Reference error: B2 not found in spreadsheet")
     end
   end
 end
