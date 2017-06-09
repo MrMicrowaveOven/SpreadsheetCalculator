@@ -26,8 +26,19 @@
             <textarea class = "form-control" id="inputText" rows = "10">1 1
 4</textarea>
          </div>
+         <div id="improper_input_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+            <strong>Oh snap!</strong> Looks like you may have formatted your instructions incorrectly.  Try again!
+         </div>
+         <div id="incorrect_dims_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+            <strong>Oh snap!</strong> Your table dimensions do not match the number of cells you've given.  Try again!
+         </div>
+         <div id="cyclic_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
+            <strong>Oh snap!</strong> Infinite cycle alert!  You're referencing cells that go in a loop.  Try again!
+         </div>
       </form>
+
     </div>
+
     <div class="col-sm-6">
       <h3 class="title">Output</h3>
       <table class = "table table-bordered table-responsive" id="spreadsheet_results">

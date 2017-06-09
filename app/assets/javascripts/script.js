@@ -18,16 +18,31 @@ function makeRequest(spreadsheetInstructions) {
     data: {spreadsheet: {instructions: spreadsheetInstructions}},
     dataType: "json",
     success: function (res) {
-      // console.log(res);
+      $('.alert').fadeOut();
       displayResults(res);
     },
     error: function (xhr, status, error) {
-      console.log(xhr.responseText);
+      showAlert(xhr.responseText);
       // console.log(xhr);
       // console.log(status);
       // console.log(error);
     }
   });
+}
+function showAlert(errorText) {
+  $("#columnHeader").empty();
+  $("#rows").empty();
+  $(".alert").fadeOut();
+  if (errorText.match(/Improper input format/)) {
+    $("#improper_input_alert").slideDown();
+  } else if (errorText.match(/Incorrect table dimensions/)) {
+    $("#incorrect_dims_alert").slideDown();
+  } else if (errorText.match(/cyclic/)) {
+    $("#cyclic_alert").slideDown();
+  }
+  setTimeout(function() {
+    $(".alert").fadeOut();
+  }, 5000);
 }
 
 function displayResults(res) {
