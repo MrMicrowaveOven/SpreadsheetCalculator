@@ -6,6 +6,10 @@
   height: 33px;
 }
 
+.row {
+  padding-top: 10px;
+}
+
 #titleText {
   margin-top: 0px;
 }
@@ -49,6 +53,7 @@ td {
   margin: auto;
   display: block;
   width: 80%;
+  border-radius: 2px;
 }
 
 .rowLabel {
