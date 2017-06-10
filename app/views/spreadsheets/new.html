@@ -19,65 +19,76 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6" id="left-column">
-        <h3 class="title">Input - Size:
-          <select name="" class="size-selector" id="numColumns">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3" selected="selected">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-          </select> x
-          <select name="" class="size-selector" id="numRows">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3" selected="selected">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-          </select>
-        </h3>
-        <div class="" id="table-container">
-          <table class = "table table-bordered table-responsive" id="spreadsheet_input">
-            <thead>
-              <tr id="inputColumnHeader">
-                <th class="rowLabel">#</th>
-                <th class="columnLabel">A</th>
-                <th class="columnLabel">B</th>
-                <th class="columnLabel">C</th>
-              </tr>
-            </thead>
+        <div class="tabbable">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#one_" data-toggle="tab">Spreadsheet</a></li>
+            <li><a href="#two_" data-toggle="tab">Textbox</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="one_">
+              <h3 class="title">Input - Size:
+                <select name="" class="size-selector" id="numColumns">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected="selected">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select> x
+                <select name="" class="size-selector" id="numRows">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3" selected="selected">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                </select>
+              </h3>
+              <div class="" id="table-container">
+                <table class = "table table-bordered table-responsive" id="spreadsheet_input">
+                  <thead>
+                    <tr id="inputColumnHeader">
+                      <th class="rowLabel">#</th>
+                      <th class="columnLabel">A</th>
+                      <th class="columnLabel">B</th>
+                      <th class="columnLabel">C</th>
+                    </tr>
+                  </thead>
 
-            <tbody id="inputRows">
-              <tr>
-                <th class="rowLabel" scope="row">1</th>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-              </tr>
+                  <tbody id="inputRows">
+                    <tr>
+                      <th class="rowLabel" scope="row">1</th>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                    </tr>
 
-              <tr>
-                <th class="rowLabel" scope="row">2</th>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-              </tr>
+                    <tr>
+                      <th class="rowLabel" scope="row">2</th>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                    </tr>
 
-              <tr>
-                <th class="rowLabel" scope="row">3</th>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-                <td><input type="text" class="cellInput" size="5px"></td>
-              </tr>
-            </tbody>
-
-          </table>
+                    <tr>
+                      <th class="rowLabel" scope="row">3</th>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                      <td><input type="text" class="cellInput" size="5px"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane" id="two_">
+            </div>
+          </div>
         </div>
         <div id="improper_input_alert" class="alert alert-warning alert-dismissible fade in" style="display:none;" role="alert">
           <strong>Oh snap!</strong> Looks like you may have formatted your instructions incorrectly.  Try again!
