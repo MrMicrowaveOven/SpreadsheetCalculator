@@ -6,6 +6,10 @@
   height: 33px;
 }
 
+#titleText {
+  margin-top: 0px;
+}
+
 .description {
   padding: 0px 20px;
 }
@@ -25,6 +29,7 @@
 
 .invalid {
   border-color: palevioletred;
+  background: beige;
 }
 
 #heading_text {
@@ -44,4 +49,8 @@ td {
   margin: auto;
   display: block;
   width: 80%;
+}
+
+.rowLabel {
+  width: 60px;
 }

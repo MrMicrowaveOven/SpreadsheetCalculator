@@ -22,7 +22,13 @@ document.addEventListener("turbolinks:load", function() {
         );
       }
     }
+    setInputListeners();
   });
+
+  setInputListeners();
+});
+
+function setInputListeners() {
   $(".cellInput").on("blur", function() {
     var field = $(this)[0];
     if (field.value === "") {
@@ -32,4 +38,4 @@ document.addEventListener("turbolinks:load", function() {
   $(".cellInput").on("focus", function() {
     $(this).removeClass("invalid");
   });
-});
+}

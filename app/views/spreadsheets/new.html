@@ -11,7 +11,7 @@
 <body>
 
   <div class="jumbotron text-center" id="heading_text">
-    <h1>Let's Build a Spreadsheet!</h1>
+    <h1 id="titleText">Let's Build a Spreadsheet!</h1>
     <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  Your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  Try it out!</p>
   </div>
 
@@ -47,7 +47,7 @@
           <table class = "table table-bordered table-responsive" id="spreadsheet_input">
             <thead>
               <tr id="inputColumnHeader">
-                <th class="columnLabel">#</th>
+                <th class="rowLabel">#</th>
                 <th class="columnLabel">A</th>
                 <th class="columnLabel">B</th>
                 <th class="columnLabel">C</th>
@@ -102,7 +102,7 @@
           <table class = "table table-bordered table-responsive" id="spreadsheet_results">
             <thead>
               <tr id="columnHeader">
-                <th class="columnLabel">#</th>
+                <th class="rowLabel">#</th>
                 <th class="columnLabel">A</th>
                 <th class="columnLabel">B</th>
                 <th class="columnLabel">C</th>
