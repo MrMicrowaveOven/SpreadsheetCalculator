@@ -23,4 +23,13 @@ document.addEventListener("turbolinks:load", function() {
       }
     }
   });
+  $(".cellInput").on("blur", function() {
+    var field = $(this)[0];
+    if (field.value === "") {
+      $(this).addClass("invalid");
+    }
+  });
+  $(".cellInput").on("focus", function() {
+    $(this).removeClass("invalid");
+  });
 });

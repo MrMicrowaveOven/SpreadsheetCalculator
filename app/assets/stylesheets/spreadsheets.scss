@@ -23,6 +23,10 @@
   display: inline-block;
 }
 
+.invalid {
+  border-color: palevioletred;
+}
+
 #heading_text {
   padding-top: 20px;
   padding-bottom: 20px;
