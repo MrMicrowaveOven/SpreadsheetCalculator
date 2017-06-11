@@ -69,6 +69,7 @@ function makeRequest(spreadsheetInstructions) {
     }
   });
 }
+// TODO: When swapping input types, transfer cell data
 function showAlert(errorText) {
   $("#columnHeader").empty();
   $("#rows").empty();
