@@ -3,7 +3,7 @@ var ALPHABET = buildColumns();
 function evaluateSpreadsheet() {
   var spreadsheetInstructions = getInput();
   if (spreadsheetInstructions === "emptyCells") {
-
+    showAlert("empty_cell_alert");
   } else {
     makeRequest(spreadsheetInstructions);
   }
@@ -75,6 +75,8 @@ function showAlert(errorText) {
     $("#reference_error_alert").slideDown();
   } else if (errorText.match(/Notation/)) {
     $("#polish_notation_error_alert").slideDown();
+  } else if (errorText === "empty_cell_alert") {
+    $("#empty_cell_alert").slideDown();
   }
   setTimeout(function() {
     $(".alert").fadeOut();
