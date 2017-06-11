@@ -10,23 +10,27 @@ function evaluateSpreadsheet() {
 }
 
 function getInput() {
-  var values = [];
-  var numColumns = $("#numColumns")[0].value;
-  var numRows = $("#numRows")[0].value;
-  var size = numColumns + " " + numRows;
-  var emptyCells;
-  $(".cellInput").toArray().forEach(function(cell) {
-    if (cell.value === "") {
-      $(cell).addClass("invalid");
-      emptyCells = true;
+  if ($("#spreadsheet-tab").attr("class") === "active") {
+    var values = [];
+    var numColumns = $("#numColumns")[0].value;
+    var numRows = $("#numRows")[0].value;
+    var size = numColumns + " " + numRows;
+    var emptyCells;
+    $(".cellInput").toArray().forEach(function(cell) {
+      if (cell.value === "") {
+        $(cell).addClass("invalid");
+        emptyCells = true;
+      }
+      values.push(cell.value);
+    });
+    var instructions = size + "\n" + values.join("\n");
+    if (emptyCells) {
+      return "emptyCells";
+    } else {
+      return instructions;
     }
-    values.push(cell.value);
-  });
-  var instructions = size + "\n" + values.join("\n");
-  if (emptyCells) {
-    return "emptyCells";
-  } else {
-    return instructions;
+  } else if ($("#textbox-tab").attr("class") === "active") {
+    return $("#inputText")[0].value;
   }
 }
 
