@@ -12,7 +12,7 @@
 
   <div class="jumbotron text-center" id="heading_text">
     <h1 id="titleText">Let's Build a Spreadsheet!</h1>
-    <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  For the text input option, your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  For Spreadsheet input, select a size then input data as you normally would.  Try it out!</p>
+    <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  For the Textbox input option, your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  For Spreadsheet input, select a size then input data as you normally would.  Try it out!</p>
   </div>
 
   <button type="button" name="button" class="btn btn-primary btn-lg" id="evaluate_button" onclick=evaluateSpreadsheet()>Evaluate!</button>
@@ -87,6 +87,7 @@
               </div>
             </div>
             <div class="tab-pane active" id="two_">
+              <h3 class="title">Input</h3>
               <textarea class = "form-control" id="inputText" rows = "10">1 1
 4</textarea>
             </div>
@@ -110,7 +111,7 @@
       </div>
 
       <div class="col-sm-6">
-        <h3 class="title">Output</h3>
+        <h3 class="title" id="output-title">Output</h3>
         <div class="" id="table-container">
           <table class = "table table-bordered table-responsive" id="spreadsheet_results">
             <thead>
