@@ -4,6 +4,8 @@ function evaluateSpreadsheet() {
   var spreadsheetInstructions = getInput();
   if (spreadsheetInstructions === "emptyCells") {
     showAlert("empty_cell_alert");
+  } else if (spreadsheetInstructions === "invalidCells") {
+    showAlert("Improper input format");
   } else {
     makeRequest(spreadsheetInstructions);
   }
