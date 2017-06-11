@@ -22,16 +22,24 @@ function getInput() {
     var numRows = $("#numRows")[0].value;
     var size = numColumns + " " + numRows;
     var emptyCells;
+    var invalidCells;
     $(".cellInput").toArray().forEach(function(cell) {
       if (cell.value === "") {
         $(cell).addClass("invalid");
         emptyCells = true;
+      } else if (!cell.value.match(
+        /^([A-Z]+[0-9]+|[0-9]+)(\s([A-Z]+[0-9]+|[0-9]+|(\*{2})|[-+\/\*]))*$/
+      )) {
+        $(cell).addClass("invalid");
+        invalidCells = true;
       }
       values.push(cell.value);
     });
     var instructions = size + "\n" + values.join("\n");
     if (emptyCells) {
       return "emptyCells";
+    } else if (invalidCells) {
+      return "invalidCells";
     } else {
       return instructions;
     }

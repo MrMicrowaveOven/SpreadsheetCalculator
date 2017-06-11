@@ -32,8 +32,8 @@ function setInputListeners() {
   $(".cellInput").on("blur", function() {
     var field = $(this)[0];
     if (
-      field.value === "" || !field.value.match(
-        /\A([A-Z]+[0-9]+|[0-9]+)(\s([A-Z]+[0-9]+|[0-9]+|(\*{2})|[-+\/\*]))*\z/
+      field.value === "" || !field.value.toString().match(
+        /^([A-Z]+[0-9]+|[0-9]+)(\s([A-Z]+[0-9]+|[0-9]+|(\*{2})|[-+\/\*]))*$/
       )
     ) {
       $(this).addClass("invalid");
