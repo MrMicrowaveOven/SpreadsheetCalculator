@@ -9,6 +9,10 @@ function evaluateSpreadsheet() {
   }
 }
 
+function removeAlerts() {
+  $(".alert").fadeOut();
+}
+
 function getInput() {
   if ($("#spreadsheet-tab").attr("class") === "active") {
     var values = [];
@@ -79,7 +83,7 @@ function showAlert(errorText) {
     $("#empty_cell_alert").slideDown();
   }
   setTimeout(function() {
-    $(".alert").fadeOut();
+    removeAlerts();
   }, 5000);
 }
 
