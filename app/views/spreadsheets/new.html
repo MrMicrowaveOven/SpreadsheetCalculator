@@ -12,7 +12,7 @@
 
   <div class="jumbotron text-center" id="heading_text">
     <h1 id="titleText">Let's Build a Spreadsheet!</h1>
-    <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements and cell references as input.  For the Textbox input option, your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  For Spreadsheet input, select a size then input data as you normally would.  Try it out!</p>
+    <p class="description">This is a Spreadsheet Calculator, which accepts both mathematical statements (Reverse Polish Notation) and cell references as input.  For the Textbox input option, your first line should be the size of the spreadsheet (`2 2` being a 2 x 2 spreadsheet, and so on), with the following lines listing cell contents.  `A2 3 *` would make the cell value equal to the value in A2, times 3.  For Spreadsheet input, select a size then input data as you normally would.  Try it out!</p>
   </div>
 
   <button type="button" name="button" class="btn btn-primary btn-lg" id="evaluate_button" onclick=evaluateSpreadsheet()>Evaluate!</button>
@@ -88,8 +88,16 @@
             </div>
             <div class="tab-pane active" id="two_">
               <h3 class="title">Input</h3>
-              <textarea class = "form-control" id="inputText" rows = "10">1 1
-4</textarea>
+              <textarea class = "form-control" id="inputText" rows = "10">3 3
+5
+3
+A1
+3 2 *
+C1 3 /
+12
+3 4 +
+2 4 **
+A1 B1 **</textarea>
             </div>
           </div>
         </div>

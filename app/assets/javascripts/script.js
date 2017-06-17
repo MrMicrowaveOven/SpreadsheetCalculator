@@ -136,6 +136,7 @@ function buildColumns() {
     "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
     "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
+// alphabetPlex will give columns beyond "Z" as "AA", "AB", and so on.
   var alphabetPlex = ["A","B", "C", "D", "E", "F", "G", "H",
     "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R",
     "S", "T", "U", "V", "W", "X", "Y", "Z"];
